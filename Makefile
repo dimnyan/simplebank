@@ -1,6 +1,9 @@
 postgres:
 	docker run --name dimnyan-psql -e POSTGRES_USER=root -e POSTGRES_PASSWORD=12345 -p 5433:5432 -d postgres:alpine
 
+startdb:
+	docker container start dimnyan-psql
+
 createdb:
 	docker exec -it dimnyan-psql createdb --username=root --owner=root simple_bank
 
@@ -17,4 +20,4 @@ sqlc:
 	sqlc generate
 
 .PHONY:
-	postgres createdb dropdb migrateup migratedown sqlc
+	postgres startdb createdb dropdb migrateup migratedown sqlc
