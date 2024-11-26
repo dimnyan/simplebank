@@ -10,6 +10,10 @@ createdb:
 dropdb:
 	docker exec -it dimnyan-psql dropdb simple_bank
 
+connectdb:
+	docker exec -it dimnyan-psql bash
+	#psql -U root
+
 migrateup:
 	migrate -path db/migration -database "postgresql://root:12345@localhost:5433/simple_bank?sslmode=disable" -verbose up
 	
@@ -19,5 +23,8 @@ migratedown:
 sqlc: 
 	sqlc generate
 
+test:
+	go test -v -cover ./...
+
 .PHONY:
-	postgres startdb createdb dropdb migrateup migratedown sqlc
+	postgres startdb createdb dropdb migrateup migratedown sqlc test
