@@ -26,7 +26,6 @@ func (server *Server) createTransfer(ctx *gin.Context) {
 	if !server.validAccount(ctx, req.FromAccountID, req.Currency) {
 		return
 	}
-
 	if !server.validAccount(ctx, req.ToAccountID, req.Currency) {
 		return
 	}
@@ -36,7 +35,6 @@ func (server *Server) createTransfer(ctx *gin.Context) {
 		ToAccountID:   req.ToAccountID,
 		Amount:        req.Amount,
 	}
-
 	result, err := server.store.TransferTx(ctx, arg)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
